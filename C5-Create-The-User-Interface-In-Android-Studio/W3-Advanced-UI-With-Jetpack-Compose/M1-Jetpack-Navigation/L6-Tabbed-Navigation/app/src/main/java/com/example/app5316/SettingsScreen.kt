@@ -11,13 +11,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun SettingsScreen() {
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
-        Text(text = " Settings Screen", fontSize = 48.sp, color = Color.Gray)
+        Text(text = " Settings Screen", fontSize = 48.sp)
 
     }
 

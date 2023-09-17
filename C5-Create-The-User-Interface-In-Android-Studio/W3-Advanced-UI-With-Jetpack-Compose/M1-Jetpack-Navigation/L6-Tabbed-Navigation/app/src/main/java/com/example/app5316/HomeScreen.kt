@@ -11,13 +11,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun HomeScreen() {
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
-       Text(text = "Home Screen", fontSize = 48.sp, color = Color.Gray)
+       Text(text = "Home Screen", fontSize = 48.sp)
 
     }
 }
