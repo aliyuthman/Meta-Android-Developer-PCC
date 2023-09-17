@@ -2,10 +2,15 @@ package com.example.app5322
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
@@ -26,7 +31,23 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun MenuGrid() {
 
-    GridCell()
+    Column(Modifier.verticalScroll(rememberScrollState())) {
+
+        repeat(10){
+            Row (
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ){
+
+                repeat(2){
+                    GridCell()
+                }
+
+            }
+        }
+    }
+
+//    GridCell()
     
 }
 
