@@ -3,21 +3,109 @@ package com.example.app5317
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.app5317.ui.theme.App5317Theme
+import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
 
+            MyApp()
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyApp() {
+
+    val navController = rememberNavController()
+    Scaffold(bottomBar = { MyBottomNavigation(navController = navController)}) {
+
+        Box (Modifier.padding(it)){
+
+            NavHost(navController = navController, startDestination = Home.route ){
+
+                composable(Home.route){
+                    HomeScreen()
+
+                }
+
+                composable(Menu.route){
+                    MenuScreen()
+
+                }
+
+
+                composable(Location.route){
+                    LocationScreen()
+
+                }
+
+
+            }
+
+
+
+        }
+
+    }
+}
+
+
+@Composable
+fun MyBottomNavigation(navController: NavController) {
+
+    val destinationsList = listOf<Destinations>(
+        Home,
+        Location,
+        Menu
+    )
+
+    val selectedIndex = rememberSaveable() {
+        mutableIntStateOf(1)
+
+    }
+
+    NavigationBar {
+        destinationsList.forEachIndexed { index, destination ->
+            NavigationBarItem(
+                selected = index == selectedIndex.value,
+                label = { Text(text = destination.title) },
+                onClick = {
+                    selectedIndex.value = index
+                    navController.navigate(destinationsList[index].route){
+
+                        popUpTo(Home.route)
+                        launchSingleTop = true
+                    }
+
+
+
+                },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = destination.icon),
+                        contentDescription = destination.title
+                    )
+                }
+
+
+            )
+
+
+        }
+    }
+
+}
